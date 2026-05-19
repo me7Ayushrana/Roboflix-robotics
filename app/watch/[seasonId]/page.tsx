@@ -714,24 +714,29 @@ export default function WatchPage() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] bg-premium-grid bg-radial-glow text-white flex flex-col font-inter relative overflow-hidden">
+      {/* Cinematic Ambient Glow Background Elements */}
+      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-brand-red/10 blur-[120px] pointer-events-none z-0 select-none animate-pulse" style={{ animationDuration: '8s' }} />
+      <div className="absolute bottom-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-brand-red/5 blur-[150px] pointer-events-none z-0 select-none animate-pulse" style={{ animationDuration: '12s' }} />
+      <div className="absolute top-[30%] left-[45%] w-[400px] h-[400px] rounded-full bg-brand-red/8 blur-[100px] pointer-events-none z-0 select-none animate-pulse" style={{ animationDuration: '10s' }} />
+
       {/* Roboflix Nav */}
       <RoboflixNavbar />
 
       {/* Breadcrumb Bar */}
-      <div className="w-full bg-[#0d0d0d] border-b border-brand-border py-3 px-6 md:px-12 flex items-center justify-between text-xs font-mono text-gray-500 uppercase select-none relative z-10">
-        <div className="flex items-center gap-2">
-          <Link href="/browse" className="hover:text-brand-red transition-colors">BROWSE</Link>
-          <ChevronRight className="w-3.5 h-3.5" />
-          <span className="text-gray-300">SEASON {activeSeason.seasonNumber}</span>
-          <ChevronRight className="w-3.5 h-3.5" />
-          <span className="text-brand-red line-clamp-1">{activeEpisode.title}</span>
+      <div className="w-full bg-[#0a0a0a]/75 backdrop-blur-md border-b border-brand-border py-4 px-6 md:px-12 flex items-center justify-between text-xs font-mono text-gray-400 uppercase select-none relative z-10">
+        <div className="flex items-center gap-2 tracking-wider">
+          <Link href="/browse" className="hover:text-brand-red transition-all duration-300 hover:scale-105 active:scale-95">BROWSE</Link>
+          <ChevronRight className="w-3.5 h-3.5 text-gray-600" />
+          <span className="text-gray-300 font-medium">SEASON {activeSeason.seasonNumber}</span>
+          <ChevronRight className="w-3.5 h-3.5 text-gray-600" />
+          <span className="text-brand-red font-bold drop-shadow-[0_0_8px_rgba(229,9,20,0.5)] line-clamp-1">{activeEpisode.title}</span>
         </div>
-        <div className="hidden md:flex items-center gap-2">
+        <div className="hidden md:flex items-center gap-2.5 px-3 py-1 rounded-full bg-brand-red/5 border border-brand-red/20 shadow-[0_0_15px_rgba(229,9,20,0.05)]">
           <span className="flex h-2 w-2 relative">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-red opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-red"></span>
           </span>
-          <span className="text-[9px] text-gray-500 tracking-wider">HLS PLAYER ONLINE</span>
+          <span className="text-[9px] text-gray-400 font-bold tracking-widest">HLS PLAYER ONLINE</span>
         </div>
       </div>
 
@@ -742,12 +747,13 @@ export default function WatchPage() {
         <div className="flex flex-col gap-6">
           
           {/* Video Player Container */}
-          <div 
-            ref={playerContainerRef}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={() => isPlaying && setShowControls(false)}
-            className="relative w-full aspect-[16/9] bg-black border border-brand-border rounded-lg overflow-hidden group select-none flex flex-col justify-end"
-          >
+          <div className="relative group/player rounded-xl p-[1px] bg-gradient-to-r from-brand-border via-brand-border to-brand-border hover:from-brand-red/30 hover:via-brand-red/10 hover:to-brand-red/30 transition-all duration-500 shadow-[0_4px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_4px_40px_rgba(229,9,20,0.15)]">
+            <div 
+              ref={playerContainerRef}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={() => isPlaying && setShowControls(false)}
+              className="relative w-full aspect-[16/9] bg-black border border-brand-border/40 rounded-xl overflow-hidden group select-none flex flex-col justify-end"
+            >
             {/* 1. Persistent Video Player Frame */}
             {hasStartedPlaying && (
               <div className="absolute inset-0 w-full h-full bg-black flex flex-col justify-between">
@@ -993,6 +999,7 @@ export default function WatchPage() {
             </>
           )}
           </div>
+          </div>
 
           {/* Episode Metadata Section */}
           <div className="flex flex-col gap-4 border-b border-brand-border pb-6">
@@ -1005,25 +1012,25 @@ export default function WatchPage() {
               </h2>
               
               {/* Meta Row info */}
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-1">
-                <span className="font-mono text-xs text-gray-400">
-                  🕒 {activeEpisode.duration}
-                </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-border" />
-                <span className="font-mono text-xs text-gray-400">
-                  📅 {activeEpisode.publishDate}
-                </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-border" />
-                <span className="font-mono text-xs text-gray-400">
-                  ⭐️ {activeEpisode.rating}
-                </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-border" />
-                <span className={`px-2 py-0.5 rounded font-mono text-[9px] font-bold ${
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-2 font-mono text-xs text-gray-400 select-none">
+                <div className="flex items-center gap-1 bg-[#111]/80 border border-brand-border/60 px-2.5 py-1 rounded-full">
+                  <span>🕒</span>
+                  <span className="font-semibold text-gray-300">{activeEpisode.duration}</span>
+                </div>
+                <div className="flex items-center gap-1 bg-[#111]/80 border border-brand-border/60 px-2.5 py-1 rounded-full">
+                  <span>📅</span>
+                  <span className="font-semibold text-gray-300">{activeEpisode.publishDate}</span>
+                </div>
+                <div className="flex items-center gap-1 bg-[#111]/80 border border-brand-border/60 px-2.5 py-1 rounded-full">
+                  <span>⭐️</span>
+                  <span className="font-semibold text-gray-300">{activeEpisode.rating}</span>
+                </div>
+                <span className={`px-3 py-1 rounded-full font-mono text-[10px] font-bold shadow-sm tracking-wider uppercase ${
                   activeEpisode.difficulty === "BEGINNER" 
-                    ? "bg-green-950/80 text-green-400 border border-green-800"
+                    ? "bg-green-950/60 text-green-400 border border-green-800/60 shadow-[0_0_15px_rgba(74,222,128,0.1)]"
                     : activeEpisode.difficulty === "INTERMEDIATE"
-                    ? "bg-blue-950/80 text-blue-400 border border-blue-800"
-                    : "bg-red-950/80 text-red-400 border border-red-800"
+                    ? "bg-blue-950/60 text-blue-400 border border-blue-800/60 shadow-[0_0_15px_rgba(96,165,250,0.1)]"
+                    : "bg-red-950/60 text-red-400 border border-red-800/60 shadow-[0_0_15px_rgba(248,113,113,0.1)]"
                 }`}>
                   {activeEpisode.difficulty}
                 </span>
@@ -1040,9 +1047,9 @@ export default function WatchPage() {
               {activeEpisode.tags.map((tag) => (
                 <span 
                   key={tag}
-                  className="px-2.5 py-1 rounded bg-[#111] border border-brand-border font-mono text-xs text-gray-400"
+                  className="px-3 py-1 rounded-full bg-brand-red/5 hover:bg-brand-red/10 border border-brand-red/20 font-mono text-xs text-gray-300 hover:text-white transition-all duration-300 hover:scale-105 active:scale-95 cursor-default select-none shadow-[0_2px_8px_rgba(229,9,20,0.02)]"
                 >
-                  {tag}
+                  #{tag.toUpperCase()}
                 </span>
               ))}
             </div>
@@ -1085,15 +1092,15 @@ export default function WatchPage() {
           </div>
 
           {/* Season Tab Swapper (S1 / S2 / S3 / S4 / S5) */}
-          <div className="grid grid-cols-5 gap-1 bg-[#111] p-1 rounded border border-brand-border">
+          <div className="grid grid-cols-5 gap-1.5 bg-[#0f0f0f]/80 backdrop-blur-md p-1.5 rounded-lg border border-brand-border/60 shadow-inner">
             {SEASONS_DATA.map((season) => (
               <button
                 key={season.id}
                 onClick={() => handleSeasonTabClick(season)}
-                className={`py-1.5 text-center font-bebas text-sm rounded tracking-wider transition-all cursor-pointer ${
+                className={`py-2 text-center font-bebas text-sm rounded-md tracking-wider transition-all duration-300 transform active:scale-95 cursor-pointer ${
                   activeSeason.id === season.id
-                    ? "bg-brand-red text-white shadow"
-                    : "text-gray-400 hover:text-white hover:bg-white/5"
+                    ? "bg-gradient-to-r from-brand-red to-[#b20710] text-white shadow-[0_0_15px_rgba(229,9,20,0.45)] font-bold"
+                    : "text-gray-400 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/5"
                 }`}
               >
                 S{season.seasonNumber}
@@ -1110,46 +1117,55 @@ export default function WatchPage() {
                 <div
                   key={ep.id}
                   onClick={() => handleEpisodeItemClick(ep)}
-                  className={`w-full p-3 rounded bg-brand-card border border-brand-border flex items-center justify-between gap-4 cursor-pointer hover:border-brand-red/30 transition-all ${
+                  className={`w-full p-3.5 rounded-xl border flex items-center justify-between gap-4 cursor-pointer transition-all duration-300 transform active:scale-[0.99] select-none ${
                     isPlayingItem 
-                      ? "border-l-4 border-l-brand-red border border-brand-border bg-[#181818]" 
-                      : ""
+                      ? "border-brand-red/50 bg-[#161616]/90 shadow-[0_0_20px_rgba(229,9,20,0.08)] relative overflow-hidden" 
+                      : "border-brand-border/60 bg-[#0d0d0d]/80 hover:bg-[#121212]/80 hover:border-brand-red/20"
                   }`}
                 >
-                  <div className="flex items-center gap-3 min-w-0">
+                  {/* Pulsing visual indicator bar */}
+                  {isPlayingItem && (
+                    <div className="absolute top-0 left-0 bottom-0 w-[3px] bg-gradient-to-b from-brand-red to-[#b20710] animate-pulse" />
+                  )}
+
+                  <div className="flex items-center gap-3.5 min-w-0 z-10">
                     {/* Ep Number or Active visual */}
-                    <div className={`font-mono text-xs font-bold min-w-4 text-center ${
+                    <div className={`font-mono text-xs font-bold min-w-5 text-center ${
                       isPlayingItem ? "text-brand-red" : "text-gray-500"
                     }`}>
                       {ep.episodeNumber.toString().padStart(2, "0")}
                     </div>
                     
                     {/* Emoji Thumbnail placeholder */}
-                    <div className="w-8 h-8 rounded bg-[#1a1a1a] flex items-center justify-center border border-brand-border select-none flex-shrink-0">
-                      <span className="text-lg">{ep.thumbnailEmoji}</span>
+                    <div className={`w-9 h-9 rounded-lg flex items-center justify-center border transition-all duration-300 flex-shrink-0 ${
+                      isPlayingItem 
+                        ? "bg-brand-red/10 border-brand-red/30 shadow-[0_0_10px_rgba(229,9,20,0.15)]"
+                        : "bg-[#161616] border-brand-border/60 group-hover:border-brand-red/10"
+                    }`}>
+                      <span className="text-xl transform group-hover:scale-110 transition-transform">{ep.thumbnailEmoji}</span>
                     </div>
 
                     {/* Title + Duration */}
                     <div className="flex flex-col min-w-0">
-                      <span className={`font-inter text-xs font-semibold truncate ${
-                        isPlayingItem ? "text-brand-red font-bold" : "text-gray-200"
+                      <span className={`font-inter text-xs truncate transition-all duration-300 ${
+                        isPlayingItem ? "text-brand-red font-bold animate-pulse" : "text-gray-200 font-semibold group-hover:text-white"
                       }`}>
                         {ep.title}
                       </span>
-                      <span className="font-mono text-[9px] text-gray-500 uppercase">
+                      <span className="font-mono text-[9px] text-gray-500 uppercase mt-0.5 tracking-wider font-semibold">
                         {ep.duration}
                       </span>
                     </div>
                   </div>
 
                   {/* Free vs Locked Tag */}
-                  <div>
+                  <div className="z-10">
                     {ep.isFree ? (
-                      <span className="px-1.5 py-0.5 rounded-sm bg-green-950/70 border border-green-800 text-[8px] font-bold text-green-400 font-mono">
+                      <span className="px-2 py-0.5 rounded-full bg-green-950/70 border border-green-800/80 text-[8px] font-bold text-green-400 font-mono tracking-wider shadow-[0_0_10px_rgba(34,197,94,0.05)]">
                         FREE
                       </span>
                     ) : (
-                      <Lock className="w-3.5 h-3.5 text-gray-600" />
+                      <Lock className="w-3.5 h-3.5 text-gray-600 transition-colors duration-300 hover:text-gray-400" />
                     )}
                   </div>
 
